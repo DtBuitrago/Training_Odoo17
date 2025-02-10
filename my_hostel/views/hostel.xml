@@ -5,16 +5,18 @@
         <field name="name">hostel.hostel.tree.view</field>
         <field name="model">hostel.hostel</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Hostel">
                 <field name="name"/>
                 <field name="hostel_code"/>
+                <field name="hostel_floors"/>
+                <field name="mobile"/>
             </tree>
         </field>
     </record>
 
     <!-- Form View -->
-    <record id="view_hostel_form_view" model="ir.ui.view">
-        <field name="name">hostel.hostel.form.view</field>
+    <record id="view_hostel_form" model="ir.ui.view">
+        <field name="name">hostel.hostel.form</field>
         <field name="model">hostel.hostel</field>
         <field name="arch" type="xml">
             <form string="Hostel">
@@ -31,14 +33,36 @@
                             </table>
                         </h3>
                     </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
                     <group>
                         <group>
                             <label for="street" string="Address"/>
                             <div class="o_address_format">
                                 <field name="street" placeholder="Street..." class="o_address_street"/>
                                 <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" 
+                                options='{"no_open": True}'/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" 
+                                class="o_address_country" options='{"no_open": True, "no_create": True}'/>
                             </div>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="email" widget="email" context="{'gravatar_image': True}"/>
                         </group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="hostel_floors"/>
+                            <!--field name="active"/-->
+                            <field name="type"/>
+                            <field name="hostel_rating"/>
+                            <field name="other_info"/>
+                            <field name="ref_doc_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
                     </group>
                 </sheet>
             </form>
