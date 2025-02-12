@@ -1,5 +1,8 @@
+import logging
+
 from odoo import api, fields, models
 
+_logger = logging.getLogger(__name__)
 
 class Hostel(models.Model):
     _name = 'hostel.hostel'
@@ -20,8 +23,8 @@ class Hostel(models.Model):
     email = fields.Char('Email')
     hostel_floors = fields.Integer(string="Total Floors")
     image = fields.Binary('Hostel Image')
-    #active = fields.Boolean("Active", default=True,
-    #    help="Activate/Deactivate hostel record")
+    active = fields.Boolean("Active", default=True,
+        help="Activate/Deactivate hostel record")
     type = fields.Selection([("male", "Boys"), ("female", "Girls"),
         ("common", "Common")], "Type", help="Type of Hostel",
         required=True, default="common")
@@ -47,3 +50,47 @@ class Hostel(models.Model):
             if record.hostel_code:
                 name = f'{name} ({record.hostel_code})'
             record.display_name = name
+    
+    def create_categories(self):
+        categ1 = {
+            'name': 'Child category 1',
+            'description': 'Description for child 1'
+        }
+        categ2 = {
+            'name': 'Child category 2',
+            'description': 'Description for child 2'
+        }
+        parent_category_val = {
+            'name': 'Parent category',
+            'description': 'Description for parent category',
+            'child_ids': [
+                (0, 0, categ1),
+                (0, 0, categ2),
+            ]
+        }
+        # Total 3 records (1 parent and 2 child) will be created in hostel.room.category model
+        record = self.env['hostel.category'].create(parent_category_val)
+        return True
+    
+    # Sorting recordset
+    def sort_hostel(self):
+        all_hostels = self.search([])
+        hostels_sorted = self.sort_hostels_by_rating(all_hostels)
+        _logger.info('Rooms before sorting: %s', all_hostels)
+        _logger.info('Rooms after sorting: %s', hostels_sorted)
+    @api.model
+    def sort_hostels_by_rating(self, all_hostels):
+        return all_hostels.sorted(key='hostel_rating')
+    
+    def grouped_data(self):
+        data = self._get_average_rating()
+        _logger.info("Grouped Data %s" % data)
+
+    @api.model
+    def _get_average_rating(self):
+        grouped_result = self.read_group(
+            [('hostel_rating', "!=", False)], # Domain
+            ['category_id', 'avg_hostel_rating:avg(hostel_rating)'], # Fields to access
+            ['category_id'] # group_by
+            )
+        return grouped_result

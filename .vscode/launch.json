@@ -13,6 +13,8 @@
             "args": [
                 "-c",
                 "/home/daniel/Development/Training/odoo.conf",
+                "-u",
+                "my_hostel, scaffold_module, my_hostel_extension",
                 "--limit-time-real",
                 "99999"
             ],

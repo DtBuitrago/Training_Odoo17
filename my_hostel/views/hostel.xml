@@ -20,6 +20,11 @@
         <field name="model">hostel.hostel</field>
         <field name="arch" type="xml">
             <form string="Hostel">
+                <header>
+                    <button name="create_categories" string="Create Categories" type="object"/>
+                    <button name="sort_hostel" string="Sort Hostel By Rating" type="object"/>
+                    <button name="grouped_data" string="Avr rating by Category" type="object"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h3>
@@ -54,7 +59,7 @@
                         <group>
                             <field name="category_id"/>
                             <field name="hostel_floors"/>
-                            <!--field name="active"/-->
+                            <field name="active"/>
                             <field name="type"/>
                             <field name="hostel_rating"/>
                             <field name="other_info"/>

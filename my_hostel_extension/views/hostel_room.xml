@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Room Form View inherit -->
+    <record id="hostel_room_view_form_inh" model="ir.ui.view">
+        <field name="name">Hostel Room Form</field>
+        <field name="model">hostel.room</field>
+        <field name="inherit_id" ref="my_hostel.view_hostel_room_form"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="extended_field"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>

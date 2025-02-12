@@ -5,3 +5,4 @@ from . import hostel_student
 from . import hostel_categ
 from . import res_partner
 from . import hostel_room_copy
+from . import hostel_room_member

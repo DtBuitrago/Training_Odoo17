@@ -18,6 +18,16 @@
             <field name="model">hostel.room</field>
             <field name="arch" type="xml">
                 <form string="Room">
+                    <header>
+                        <button name="find_room" string="Find Room" type="object"/>
+                        <button name="make_available" string="Make Available" type="object"/>
+                        <button name="make_closed"  string="Make Closed" type="object"/>
+                        <button name="log_all_room_members"  string="Log Members" type="object"/>
+                        <button name="update_room_no" string="Update Room No" type="object"/>
+                        <button name="filter_members" string="Recordset Rooms with Members" type="object"/>
+                        <button name="mapped_rooms_members" string="Members names" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -31,16 +41,25 @@
                                 <field name="availability"/>
                                 <field name="rent_amount"/>
                                 <field name="currency_id"/>
+                                <field name="remarks"/>
                             </group>
                         </group>
                         <notebook>
-                            <page name="room_studnets" string="Studnets">
+                            <page name="room_students" string="Students">
                                 <field name="student_ids"/>
                             </page>
                             <page name="hostel_amenities" string="Room Amenities">
                                 <group>
                                     <field name="hostel_amenities_ids" widget="many2many_tags"/>
                                 </group>
+                            </page>
+                            <page name="hostel_room_members" string="Room Members">
+                                <group>
+                                    <field name="member_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            <page name="room_previous_room" string="Previous Room">
+                                <field name="previous_room_id" widget="many2one_tags"/>
                             </page>
                         </notebook>
                     </sheet>
