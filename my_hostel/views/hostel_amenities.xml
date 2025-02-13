@@ -44,7 +44,7 @@
         </record>
 
         <menuitem id="hostel_configuration" name="Configuration" parent="my_hostel.hostel_main_menu" 
-            groups="my_hostel.group_hostel_manager" 
+            groups="my_hostel.group_hostel_manager,my_hostel.group_hostel_user" 
             sequence="10"/>
 
         <menuitem id="hostel_amenities_menu" name="Hostel Amenities" parent="my_hostel.hostel_configuration" 

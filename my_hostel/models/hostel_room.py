@@ -1,6 +1,7 @@
 import logging
 
 from odoo import fields, models, api, _
+from odoo.osv import expression
 from odoo.exceptions import ValidationError, UserError
 from odoo.tools.translate import _
 
@@ -144,14 +145,12 @@ class HostelRoom(models.Model):
         return result
     
     @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
-        args = [] if args is None else args.copy()
+    def _name_search(self, name='', domain=None, operator='ilike', limit=100, order=None):
+        domain = [] if domain is None else domain.copy()
         if not(name == '' and operator == 'ilike'):
-            args += ['|', '|', '|',
+            domain += ['|', '|', '|',
                 ('name', operator, name),
                 ('room_no', operator, name),
                 ('member_ids.name', operator, name)
             ]
-        return super(HostelRoom, self)._name_search(
-            name=name, args=args, operator=operator,
-            limit=limit, name_get_uid=name_get_uid)
+        return super(HostelRoom, self)._name_search(name=name, domain=domain, operator=operator, limit=limit, order=order)

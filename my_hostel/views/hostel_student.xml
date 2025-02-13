@@ -55,7 +55,7 @@
         </record>
 
         <menuitem id="hostel_student_sub_menu" name="Students" parent="my_hostel.hostel_main_menu" 
-            action="my_hostel.action_hostel_student" groups="my_hostel.group_hostel_manager" 
+            action="my_hostel.action_hostel_student" groups="my_hostel.group_hostel_manager,my_hostel.group_hostel_user" 
             sequence="3"/>
 
     </data>
