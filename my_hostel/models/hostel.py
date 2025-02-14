@@ -76,8 +76,8 @@ class Hostel(models.Model):
     def sort_hostel(self):
         all_hostels = self.search([])
         hostels_sorted = self.sort_hostels_by_rating(all_hostels)
-        _logger.info('Rooms before sorting: %s', all_hostels)
-        _logger.info('Rooms after sorting: %s', hostels_sorted)
+        _logger.info('Hostels before sorting: %s', all_hostels)
+        _logger.info('Hostels after sorting: %s', hostels_sorted)
     @api.model
     def sort_hostels_by_rating(self, all_hostels):
         return all_hostels.sorted(key='hostel_rating')
@@ -94,3 +94,18 @@ class Hostel(models.Model):
             ['category_id'] # group_by
             )
         return grouped_result
+    
+    def action_category_with_amount(self):
+        self.env.cr.execute("""
+            SELECT
+                hc.name,
+                hc.amount,
+                hc.description
+            FROM
+                hostel_hostel AS hostel
+            JOIN
+                hostel_category as hc ON hc.id = hostel.category_id
+            WHERE hostel.category_id = %(cate_id)s;""", 
+            {'cate_id': self.category_id.id})
+        result = self.env.cr.fetchall()
+        _logger.warning("Hostel With Amount: %s", result)

@@ -154,3 +154,7 @@ class HostelRoom(models.Model):
                 ('member_ids.name', operator, name)
             ]
         return super(HostelRoom, self)._name_search(name=name, domain=domain, operator=operator, limit=limit, order=order)
+    
+    def action_remove_room_members(self):
+        for student in self.student_ids:
+            student.with_context(is_hostel_room=True).action_remove_room()

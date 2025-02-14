@@ -24,6 +24,7 @@
                     <button name="create_categories" string="Create Categories" type="object"/>
                     <button name="sort_hostel" string="Sort Hostel By Rating" type="object"/>
                     <button name="grouped_data" string="Avr rating by Category" type="object"/>
+                     <button name="action_category_with_amount" string="SQL Query" type="object"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

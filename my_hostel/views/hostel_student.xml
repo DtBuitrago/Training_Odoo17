@@ -19,6 +19,29 @@
             <field name="model">hostel.student</field>
             <field name="arch" type="xml">
                 <form string="Student">
+                    <header>
+                        <button name="action_assign_room"
+                            string="Assign Room"
+                            type="object"
+                            class="btn-primary"
+                        />
+                        <button name="action_remove_room"
+                            string="Remove Room"
+                            type="object"
+                            class="btn-primary"
+                        />
+                        <button string="Assign Room Wizard"
+                            type="action"
+                            class="btn-primary"
+                            name="%(action_assign_room_student_wizard)d"
+                        />
+                        <button name="return_room"
+                            string="Return Room"
+                            type="object"
+                            class="btn-primary"
+                            groups="my_hostel.group_hostel_user"
+                        />
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -33,6 +56,7 @@
                                 <field name="admission_date"/>
                                 <field name="discharge_date"/>
                                 <field name="duration"/>
+                                <field name="duration_months"/>
                             </group>
                         </group>
                     </sheet>

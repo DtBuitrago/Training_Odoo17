@@ -1,13 +1,13 @@
 
 from datetime import datetime, timedelta
 from odoo import fields, models, api
-
+from odoo.tests.common import Form
 
 class HostelStudent(models.Model):
     _name = "hostel.student"
     _description = "Hostel Student Information"
 
-    partner_id = fields.Many2one('res.partner', ondelete='cascade', delegate=True)
+    #partner_id = fields.Many2one('res.partner', ondelete='cascade', delegate=True)
 
     @api.depends("admission_date", "discharge_date")
     def _compute_check_duration(self):
@@ -45,3 +45,43 @@ class HostelStudent(models.Model):
         help="Date on which student discharge")
     duration = fields.Integer("Duration", compute="_compute_check_duration", inverse="_inverse_duration",
                                help="Enter duration of living")
+    duration_months = fields.Integer("Duration on Months",help="Enter duration of living")
+    
+    def action_assign_room(self):
+        self.ensure_one()
+        room_as_superuser = self.env['hostel.room'].sudo()
+        domain = [
+            ('name', 'ilike', 'Hotel Cochabamba')
+        ]
+        hostel_id = self.env['hostel.hostel'].search(domain)
+        room_rec = room_as_superuser.create({
+            "name": "Room A-103",
+            "room_no": "A-104",
+            "floor_no": 1,
+            "hostel_id": hostel_id.id,
+            "student_per_room": 3,
+        })
+        if room_rec:
+            self.sudo().room_id = room_rec.id
+        
+    def action_remove_room(self):
+        if self.env.context.get("is_hostel_room"):
+            self.room_id = False
+        else:
+            print("Context is not set")
+
+    @api.onchange('admission_date', 'discharge_date')
+    def onchange_duration(self):
+        if self.discharge_date and self.admission_date:
+            self.duration_months = (self.discharge_date.year - \
+                            self.admission_date.year) * 12 + \
+                            (self.discharge_date.month - \
+                            self.admission_date.month)
+            
+    def return_room(self):
+        self.ensure_one()
+        wizard = self.env['assign.room.student.wizard']
+        with Form(wizard) as return_form:
+            return_form.room_id = self.env.ref('my_hostel.101_room')
+            record = return_form.save()
+            record.with_context(active_id=self.id).add_room_in_student()

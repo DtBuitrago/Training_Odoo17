@@ -26,6 +26,7 @@
                         <button name="update_room_no" string="Update Room No" type="object"/>
                         <button name="filter_members" string="Recordset Rooms with Members" type="object"/>
                         <button name="mapped_rooms_members" string="Members names" type="object"/>
+                        <button name="action_remove_room_members" string="Remove Students" type="object"/>                       
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -35,6 +36,7 @@
                                 <field name="room_no"/>
                                 <field name="hostel_id" required="1"/>
                                 <field name="floor_no"/>
+                                <field name="previous_room_id"/>
                             </group>
                             <group>
                                 <field name="student_per_room"/>
@@ -57,9 +59,6 @@
                                 <group>
                                     <field name="member_ids" widget="many2many_tags"/>
                                 </group>
-                            </page>
-                            <page name="room_previous_room" string="Previous Room">
-                                <field name="previous_room_id" widget="many2one_tags"/>
                             </page>
                         </notebook>
                     </sheet>
