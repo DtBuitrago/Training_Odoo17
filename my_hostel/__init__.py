@@ -6,7 +6,7 @@ from odoo import api, SUPERUSER_ID
 
 def add_room_hook(env):
     print("Post Hook ACTIVATED")
-    env = api.Environment(cr, SUPERUSER_ID, {})
+    env = api.Environment(env.cr, SUPERUSER_ID, {})
     room_data1 = {'name': 'Room 1', 'room_no': '01', 'hostel_id': 2}
     room_data2 = {'name': 'Room 2', 'room_no': '02', 'hostel_id': 2}
     env['hostel.room'].create([room_data1, room_data2])

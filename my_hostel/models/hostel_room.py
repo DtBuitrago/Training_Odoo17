@@ -52,6 +52,12 @@ class HostelRoom(models.Model):
     member_ids = fields.Many2many('hostel.room.member', string='Members')
     remarks = fields.Text('Remarks')
     previous_room_id = fields.Many2one('hostel.room', string='Previous Room')
+    hostel_room_category_id = fields.Many2one(
+        'hostel.room.category',
+        string='Parent Category',
+        ondelete='restrict',
+        index=True
+    )
 
     @api.model
     def is_allowed_transition(self, old_state, new_state):

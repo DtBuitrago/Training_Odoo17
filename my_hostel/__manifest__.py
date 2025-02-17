@@ -20,6 +20,7 @@
         'wizards/assign_room_student.xml',
         'views/hostel_room_availability.xml',
         'views/res_config_settings.xml',
+        'views/hostel_room_category.xml',
     ],
     #'pre_init_hook':'pre_init_hook_hostel',
     'post_init_hook': 'add_room_hook',
