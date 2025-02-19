@@ -25,6 +25,7 @@
         'views/hostel_room_stage.xml',
         'reports/hostel_room_detail_report.xml',
         'reports/hostel_room_detail_report_template.xml',
+        'views/templates.xml',
     ],
     #'pre_init_hook':'pre_init_hook_hostel',
     'post_init_hook': 'add_room_hook',
