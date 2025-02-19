@@ -8,3 +8,4 @@ class HostelAmenities(models.Model):
     name = fields.Char("Name", help="Provided Hostel Amenity")
     active = fields.Boolean("Active",
         help="Activate/Deactivate whether the amenity should be given or not")
+    color = fields.Integer("Color Index")

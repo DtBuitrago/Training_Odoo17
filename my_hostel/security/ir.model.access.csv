@@ -17,3 +17,5 @@ access_assign_hostel_room_availability,access.assign.hostel.room.availability,mo
 access_assign_hostel_room_availability_manager,access.assign.hostel.room.availability.manager,model_hostel_room_availability,my_hostel.group_hostel_manager,1,1,1,1
 access_hostel_room_category,hostel.room.category.user,model_hostel_room_category,group_hostel_user,1,0,0,0
 access_hostel_room_category_manager,hostel.room.category.manager,model_hostel_room_category,group_hostel_manager,1,1,1,1
+access_hostel_room_stage_user,access.hostel.room.stage.user,my_hostel.model_hostel_room_stage,group_hostel_user,1,0,0,0
+access_hostel_room_stage_manager,access.hostel.room.stage.manager,my_hostel.model_hostel_room_stage,group_hostel_manager,1,1,1,1

@@ -27,6 +27,11 @@
                      <button name="action_category_with_amount" string="SQL Query" type="object"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="%(my_hostel.action_hostel_room)d" type="action" icon="fa-building" context="{'search_default_hostel_id': active_id}">
+                            <field string="Rooms" name="rooms_count" widget="statinfo"/>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <h3>
                             <table>

@@ -9,3 +9,4 @@ from . import hostel_room_member
 from . import hostel_room_availability
 from . import res_config_settings
 from . import hostel_room_category
+from . import hostel_room_stage

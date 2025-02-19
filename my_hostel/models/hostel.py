@@ -37,6 +37,12 @@ class Hostel(models.Model):
                                 )
     category_id = fields.Many2one('hostel.category')
     ref_doc_id = fields.Reference(selection='_referencable_models', string='Reference Document')
+    rooms_count = fields.Integer(compute="_compute_rooms_count")
+
+    def _compute_rooms_count(self):
+        room_obj = self.env['hostel.room']
+        for hostel in self:
+            hostel.rooms_count = room_obj.search_count([('hostel_id', '=', hostel.id)])
 
     @api.model
     def _referencable_models(self):

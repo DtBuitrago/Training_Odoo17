@@ -18,7 +18,7 @@ class BaseArchive(models.AbstractModel):
 class HostelRoom(models.Model):
 
     _name = "hostel.room"
-    _inherit = ['base.archive']
+    _inherit = ['base.archive', 'mail.thread', 'mail.activity.mixin']
     _description = "Hostel Room Information"
     _rec_name = "room_no"
 
@@ -27,6 +27,15 @@ class HostelRoom(models.Model):
         """Method to check room availability"""
         for rec in self:
             rec.availability = rec.student_per_room - len(rec.student_ids.ids)
+
+    @api.model
+    def _default_room_stage(self):
+        stage = self.env['hostel.room.stage']
+        return stage.search([], limit=1)
+    
+    @api.model
+    def _group_expand_stages(self, stages, domain, order):
+        return stages.search([], order=order)
 
     name = fields.Char(string="Room Name", required=True)
     room_no = fields.Char("Room No.", required=True)
@@ -49,6 +58,7 @@ class HostelRoom(models.Model):
         ('available', 'Available'),
         ('closed', 'Closed')],
         'State', default="draft")
+
     member_ids = fields.Many2many('hostel.room.member', string='Members')
     remarks = fields.Text('Remarks')
     previous_room_id = fields.Many2one('hostel.room', string='Previous Room')
@@ -58,7 +68,14 @@ class HostelRoom(models.Model):
         ondelete='restrict',
         index=True
     )
-
+    stage_id = fields.Many2one(
+        'hostel.room.stage',
+        default=_default_room_stage,
+        group_expand='_group_expand_stages',
+    )
+    color = fields.Integer("Color Index")
+    popularity = fields.Selection([('no', 'No Demand'), ('low', 'Low Demand'), ('medium', 'Average Demand'), ('high', 'High Demand'),])
+    
     @api.model
     def is_allowed_transition(self, old_state, new_state):
         allowed = [('draft', 'available'),
@@ -76,6 +93,7 @@ class HostelRoom(models.Model):
         self.change_state('available')
     def make_closed(self):
         self.change_state('closed')
+    
     def log_all_room_members(self):
         hostel_room_obj = self.env['hostel.room.member']  # This is an empty recordset of model hostel.room.member
         all_members = hostel_room_obj.search([])

@@ -25,6 +25,7 @@ class RoomCategory(models.Model):
     date_end = fields.Datetime(string='Ending Date', index=True, copy=False)
     date_assign = fields.Datetime(string='Assigning Date', copy=False,)
     address = fields.Char(strin="Address")
+    fold = fields.Boolean('Fold?')
 
     def _compute_related_hostel_room(self):
         for record in self:
